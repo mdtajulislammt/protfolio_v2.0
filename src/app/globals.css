@@ -282,11 +282,11 @@
   }
 
   .hero-note {
-    flex-direction: column !important;
-    align-items: flex-start !important;
+    flex-direction: row !important;
+    align-items: center !important;
     gap: 8px !important;
-    max-width: 240px !important;
-    top: 25% !important;
+    max-width: none !important;
+    top: 18px !important;
   }
 
   .availability-badge {
@@ -305,11 +305,11 @@
 }
 
 .hero-note {
-  top: 36%;
+  top: 24px;
   left: var(--gutter);
   z-index: 2;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   display: flex;
   position: absolute;
 }
@@ -374,7 +374,7 @@
 }
 
 .hero-title {
-  bottom: 12%;
+  bottom: 84px;
   left: var(--gutter);
   font-family: var(--font-bebas), "Bebas Neue", sans-serif;
   text-transform: uppercase;
@@ -382,16 +382,16 @@
   z-index: 2;
   color: #000000;
   pointer-events: auto;
-  max-width: 460px;
+  max-width: 480px;
   margin: 0;
-  font-size: clamp(56px, 8vw, 130px);
+  font-size: clamp(52px, 7.5vw, 115px);
   font-weight: 400;
   line-height: 0.86;
   position: absolute;
 }
 
 .hero-name {
-  bottom: 3.5%;
+  bottom: 26px;
   left: var(--gutter);
   color: #000000;
   z-index: 2;
@@ -402,17 +402,18 @@
 }
 
 .hero-name span {
-  color: #000000;
+  color: #2563eb;
   margin-top: 2px;
-  font-size: 12px;
+  font-size: 11px;
+  font-family: var(--font-mono), monospace;
   font-weight: 600;
   display: block;
 }
 
 .hero-specialty {
-  bottom: 13%;
+  bottom: 84px;
   right: var(--gutter);
-  max-width: 220px;
+  max-width: 240px;
   font-family: var(--font-bebas), "Bebas Neue", sans-serif;
   text-transform: uppercase;
   z-index: 2;
@@ -512,8 +513,8 @@
   }
 
   .hero-note {
-    top: auto;
-    bottom: 58px;
+    top: 14px;
+    bottom: auto;
     left: var(--gutter);
     max-width: calc(100% - 2 * var(--gutter));
     flex-wrap: wrap;

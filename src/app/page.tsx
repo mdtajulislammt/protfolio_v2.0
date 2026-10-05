@@ -5,7 +5,6 @@ import { Navbar } from "@/components/ui/Navbar";
 import { CommandMenu } from "@/components/ui/CommandMenu";
 import { ToastProvider } from "@/components/ui/Toast";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
-import { BackendTelemetryBar } from "@/components/ui/BackendTelemetryBar";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { MarqueeSection } from "@/components/sections/MarqueeSection";
 import { ExperienceSection } from "@/components/sections/ExperienceSection";
@@ -29,9 +28,6 @@ export default function Home() {
             isOpen={commandMenuOpen}
             onClose={() => setCommandMenuOpen(false)}
           />
-
-          {/* Floating Backend Developer Telemetry HUD */}
-          <BackendTelemetryBar />
 
           {/* Main Content Sections */}
           <main className="relative z-10 flex flex-col">
