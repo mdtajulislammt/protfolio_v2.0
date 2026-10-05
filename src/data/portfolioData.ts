@@ -3,13 +3,13 @@ import { Project, Experience, Education, SkillCategory, EngineeringMindsetPrinci
 export const PERSONAL_INFO = {
   name: "MD Tajul Islam",
   preferredName: "Tajul Islam",
-  title: "Backend Developer & System Architect",
+  title: "Backend Engineer & System Architect",
   company: "Backbencher Studio",
-  headline: "Backend Developer & System Architect",
-  pitch: "Skilled and result-oriented Backend Developer & Team Leader with deep expertise in designing scalable backend architectures, microservices, and database systems. Proven track record in developing high-performance REST APIs, database schemas, real-time communication systems, and cloud deployments using Clean Code and SOLID principles.",
+  headline: "Backend Engineer & System Architect",
+  pitch: "Skilled and result-oriented Backend Engineer & Team Leader with deep expertise in designing scalable backend architectures, microservices, and database systems. Proven track record in developing high-performance REST APIs, database schemas, real-time communication systems, and cloud deployments using Clean Code and SOLID principles.",
   bio: [
-    "Skilled and result-oriented Backend Developer & Team Leader with deep expertise in designing scalable backend architectures, microservices, and database systems.",
-    "Currently serving as Backend Developer at Backbencher Studio, building enterprise-scale software projects, architecting clean RESTful APIs, and designing modular backends with NestJS, Prisma ORM, and PostgreSQL.",
+    "Skilled and result-oriented Backend Engineer & Team Leader with deep expertise in designing scalable backend architectures, microservices, and database systems.",
+    "Currently serving as Backend Engineer at Backbencher Studio, building enterprise-scale software projects, architecting clean RESTful APIs, and designing modular backends with NestJS, Prisma ORM, and PostgreSQL.",
     "Proven track record in developing high-performance REST APIs, database schemas, real-time communication systems (WebRTC, LiveKit, Socket.IO), and multi-tenant cloud deployments using Clean Code and SOLID principles.",
     "Comprehensive technical mastery across Go (Golang), Node.js, TypeScript, Docker, Portainer, Linux (Ubuntu, Arch Linux), Redis, Kafka, RabbitMQ, pgvector, and frontend ecosystems like React and Next.js."
   ],
@@ -31,7 +31,7 @@ export const PERSONAL_INFO = {
   stats: [
     { label: "Core Focus", value: "Backend", highlight: "System Architecture" },
     { label: "Microservices & APIs", value: "50+", highlight: "High throughput" },
-    { label: "Engineering", value: "Backend Dev", highlight: "Backbencher Studio" },
+    { label: "Engineering", value: "Backend Engineer", highlight: "Backbencher Studio" },
     { label: "Core Stack", value: "NestJS & Go", highlight: "PostgreSQL & Docker" }
   ]
 };

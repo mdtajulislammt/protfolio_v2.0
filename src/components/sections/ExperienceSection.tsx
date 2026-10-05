@@ -1,17 +1,90 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useRef } from "react";
 import { EXPERIENCES } from "@/data/portfolioData";
-import { Calendar, MapPin, CheckCircle2, Briefcase, Award } from "lucide-react";
+import { Calendar, MapPin, CheckCircle2, Briefcase } from "lucide-react";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 export function ExperienceSection() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const leftColRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
+  const yearsCounterRef = useRef<HTMLDivElement>(null);
+  const projectsCounterRef = useRef<HTMLDivElement>(null);
+  const techCounterRef = useRef<HTMLDivElement>(null);
+  const companiesCounterRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // 1. Animate Sticky Header
+      if (leftColRef.current) {
+        gsap.from(leftColRef.current, {
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+          x: -30,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+        });
+      }
+
+      // 2. Animate Numeric Counters on Scroll
+      const animateCounter = (el: HTMLElement | null, targetVal: number, suffix: string) => {
+        if (!el) return;
+        const obj = { val: 0 };
+        gsap.to(obj, {
+          scrollTrigger: {
+            trigger: el,
+            start: "top 88%",
+            toggleActions: "play none none none",
+          },
+          val: targetVal,
+          duration: 1.5,
+          ease: "power2.out",
+          onUpdate: () => {
+            el.innerText = `${Math.floor(obj.val)}${suffix}`;
+          },
+        });
+      };
+
+      animateCounter(yearsCounterRef.current, 3, "+");
+      animateCounter(projectsCounterRef.current, 30, "+");
+      animateCounter(techCounterRef.current, 15, "+");
+      animateCounter(companiesCounterRef.current, 3, "");
+
+      // 3. Experience Cards Reveal (each card triggers when it enters the viewport)
+      const cardElements = gsap.utils.toArray<HTMLElement>(".exp-card-item");
+      cardElements.forEach((card) => {
+        gsap.from(card, {
+          scrollTrigger: {
+            trigger: card,
+            start: "top 85%",
+            toggleActions: "play none none none",
+          },
+          y: 40,
+          opacity: 0,
+          duration: 0.75,
+          ease: "power3.out",
+        });
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="experience" className="py-24 sm:py-32 relative z-10 bg-[#eef5ff]">
+    <section
+      id="experience"
+      ref={sectionRef}
+      className="py-24 sm:py-32 relative z-10 bg-[#eef5ff] border-y border-[rgba(37,99,235,0.15)]"
+    >
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* Left Column: Sticky Section Header */}
-          <div className="lg:col-span-4 lg:sticky lg:top-32 space-y-5">
+          <div ref={leftColRef} className="lg:col-span-4 lg:sticky lg:top-32 space-y-5">
             <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#2563eb] font-bold">
               <Briefcase className="w-3.5 h-3.5 text-[#2563eb]" />
               <span>01 / Experience</span>
@@ -25,22 +98,30 @@ export function ExperienceSection() {
               Building innovative solutions and growing as a developer through diverse challenges and collaborative environments.
             </p>
 
-            {/* 4 Quick Stat Pills from user's experience */}
+            {/* 4 Quick Stat Pills with GSAP dynamic count up */}
             <div className="grid grid-cols-2 gap-2.5 pt-2">
               <div className="p-3 rounded-2xl bg-[#dbeafe]/90 border border-[rgba(37,99,235,0.25)] text-center shadow-xs">
-                <div className="font-bebas text-3xl text-black leading-none">3+</div>
+                <div ref={yearsCounterRef} className="font-bebas text-3xl text-black leading-none">
+                  0+
+                </div>
                 <div className="text-[11px] font-mono text-black font-semibold mt-0.5">Years Experience</div>
               </div>
               <div className="p-3 rounded-2xl bg-[#dbeafe]/90 border border-[rgba(37,99,235,0.25)] text-center shadow-xs">
-                <div className="font-bebas text-3xl text-black leading-none">30+</div>
+                <div ref={projectsCounterRef} className="font-bebas text-3xl text-black leading-none">
+                  0+
+                </div>
                 <div className="text-[11px] font-mono text-black font-semibold mt-0.5">Projects Completed</div>
               </div>
               <div className="p-3 rounded-2xl bg-[#dbeafe]/90 border border-[rgba(37,99,235,0.25)] text-center shadow-xs">
-                <div className="font-bebas text-3xl text-black leading-none">15+</div>
+                <div ref={techCounterRef} className="font-bebas text-3xl text-black leading-none">
+                  0+
+                </div>
                 <div className="text-[11px] font-mono text-black font-semibold mt-0.5">Technologies</div>
               </div>
               <div className="p-3 rounded-2xl bg-[#dbeafe]/90 border border-[rgba(37,99,235,0.25)] text-center shadow-xs">
-                <div className="font-bebas text-3xl text-black leading-none">3</div>
+                <div ref={companiesCounterRef} className="font-bebas text-3xl text-black leading-none">
+                  0
+                </div>
                 <div className="text-[11px] font-mono text-black font-semibold mt-0.5">Companies</div>
               </div>
             </div>
@@ -59,11 +140,11 @@ export function ExperienceSection() {
           </div>
 
           {/* Right Column: Experience Cards List */}
-          <div className="lg:col-span-8 space-y-6">
+          <div ref={cardsRef} className="lg:col-span-8 space-y-6">
             {EXPERIENCES.map((exp) => (
               <div
                 key={exp.id}
-                className="warm-card p-7 sm:p-9 bg-gradient-to-br from-[#eff6ff] via-[#dbeafe] to-[#bfdbfe]/80 border border-[rgba(37,99,235,0.3)] relative group transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-[#2563eb]"
+                className="exp-card-item warm-card p-7 sm:p-9 bg-gradient-to-br from-[#eff6ff] via-[#dbeafe] to-[#bfdbfe]/80 border border-[rgba(37,99,235,0.3)] relative group transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-[#2563eb]"
               >
                 {/* Meta Header */}
                 <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-5">
@@ -134,4 +215,5 @@ export function ExperienceSection() {
     </section>
   );
 }
+
 

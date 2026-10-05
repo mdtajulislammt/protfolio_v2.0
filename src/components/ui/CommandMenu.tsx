@@ -14,10 +14,12 @@ import {
   Home,
   X,
   ExternalLink,
+  Network,
 } from "lucide-react";
 import { Github, Linkedin } from "@/components/ui/Icons";
 import { PERSONAL_INFO, PROJECTS } from "@/data/portfolioData";
 import { useToast } from "@/components/ui/Toast";
+import { useSmoothScroll } from "@/components/providers/SmoothScrollProvider";
 
 interface CommandMenuProps {
   isOpen: boolean;
@@ -28,6 +30,7 @@ export function CommandMenu({ isOpen, onClose }: CommandMenuProps) {
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const { showToast } = useToast();
+  const { scrollTo: smoothScrollTo } = useSmoothScroll();
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -58,10 +61,7 @@ export function CommandMenu({ isOpen, onClose }: CommandMenuProps) {
   };
 
   const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
+    smoothScrollTo(`#${id}`);
     onClose();
   };
 
@@ -85,7 +85,7 @@ export function CommandMenu({ isOpen, onClose }: CommandMenuProps) {
     {
       id: "projects",
       title: "Jump to Selected Projects",
-      subtitle: "5 core backend architectures & cloud systems",
+      subtitle: "6 core backend architectures & cloud systems",
       icon: Layers,
       category: "Navigation",
       action: () => scrollTo("projects"),

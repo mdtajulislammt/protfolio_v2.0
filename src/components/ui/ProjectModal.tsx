@@ -53,25 +53,34 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             {/* Header */}
             <div className="p-6 sm:p-8 pb-4 border-b border-[rgba(37,99,235,0.2)] flex items-start justify-between gap-4">
               <div>
-                <div className="flex items-center gap-2 mb-2">
+                <div className="flex flex-wrap items-center gap-2 mb-2">
                   <span className="text-[10px] font-mono uppercase tracking-wider px-3 py-1 rounded-full bg-[#dbeafe] border border-[rgba(37,99,235,0.3)] text-black font-bold">
                     {project.category}
                   </span>
                   <span className="text-[11px] font-mono text-black font-semibold">
                     {project.period}
                   </span>
+                  <div className="flex items-center gap-1.5 text-xs font-mono text-[#2563eb] px-2.5 py-0.5 rounded-full bg-[#dbeafe] border border-[rgba(37,99,235,0.2)]">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="text-[11px] font-bold text-black">{project.status}</span>
+                  </div>
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-black">
                   {project.title}
                 </h3>
-                <p className="text-xs sm:text-sm font-mono text-black mt-1 font-semibold">
+                <p className="text-xs sm:text-sm font-mono text-[#2563eb] mt-1 font-bold">
                   {project.subtitle}
                 </p>
+                {project.tagline && (
+                  <p className="text-xs sm:text-sm text-black/80 font-space mt-2 italic leading-relaxed">
+                    &ldquo;{project.tagline}&rdquo;
+                  </p>
+                )}
               </div>
 
               <button
                 onClick={onClose}
-                className="p-2.5 rounded-full bg-[#dbeafe] hover:bg-[#bfdbfe] border border-[rgba(37,99,235,0.3)] text-black hover:text-[#2563eb] transition-colors cursor-pointer"
+                className="p-2.5 rounded-full bg-[#dbeafe] hover:bg-[#bfdbfe] border border-[rgba(37,99,235,0.3)] text-black hover:text-[#2563eb] transition-colors cursor-pointer shrink-0"
                 aria-label="Close dialog"
               >
                 <X className="w-4 h-4" />

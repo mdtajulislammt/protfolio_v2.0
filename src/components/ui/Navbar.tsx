@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Search, Menu, X, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSmoothScroll } from "@/components/providers/SmoothScrollProvider";
 
 interface NavbarProps {
   onOpenCommand: () => void;
@@ -12,6 +13,7 @@ export function Navbar({ onOpenCommand }: NavbarProps) {
   const [activeSection, setActiveSection] = useState("hero");
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { scrollTo: smoothScrollTo } = useSmoothScroll();
 
   const navLinks = [
     { name: "Home", href: "#hero", id: "hero" },
@@ -47,11 +49,7 @@ export function Navbar({ onOpenCommand }: NavbarProps) {
 
   const scrollTo = (href: string) => {
     setMobileMenuOpen(false);
-    const targetId = href.replace("#", "");
-    const targetEl = document.getElementById(targetId);
-    if (targetEl) {
-      targetEl.scrollIntoView({ behavior: "smooth" });
-    }
+    smoothScrollTo(href);
   };
 
   return (

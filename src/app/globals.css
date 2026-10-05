@@ -35,15 +35,36 @@
   }
 
   html {
-    scroll-behavior: smooth;
     color-scheme: light;
+  }
+
+  /* Lenis Smooth Kinetic Scroll */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis:not(.lenis-autoToggle).lenis-stopped {
+    overflow: clip;
+  }
+
+  .lenis [data-lenis-prevent],
+  .lenis [data-lenis-prevent-wheel],
+  .lenis [data-lenis-prevent-touch],
+  .lenis [data-lenis-prevent-vertical],
+  .lenis [data-lenis-prevent-horizontal] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-smooth iframe {
+    pointer-events: none;
   }
 
   body {
     background-color: var(--bg);
     color: var(--text);
     font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   ::selection {
@@ -601,3 +622,36 @@
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(37, 99, 235, 0.45);
 }
+
+/* Dynamic Animation Utilities */
+@keyframes floatOrb {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  50% {
+    transform: translate(20px, -20px) scale(1.08);
+  }
+}
+
+@keyframes scanbeam {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(200%);
+    opacity: 0;
+  }
+}
+
+.animate-float-orb {
+  animation: floatOrb 12s ease-in-out infinite;
+}
+
+.animate-scanbeam {
+  animation: scanbeam 4s ease-in-out infinite;
+}
+

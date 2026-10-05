@@ -2,13 +2,23 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { Clock, ArrowDown } from "lucide-react";
+import { Clock, ArrowDown, Terminal, CheckCircle2, Copy } from "lucide-react";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { useSmoothScroll } from "@/components/providers/SmoothScrollProvider";
 
 export function HeroSection() {
   const [timeString, setTimeString] = useState<string>("");
   const [mousePos, setMousePos] = useState({ x: 700, y: 350 });
   const [isHovering, setIsHovering] = useState(false);
+  const [showConsole, setShowConsole] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const heroStageRef = useRef<HTMLDivElement>(null);
+  const scriptRef = useRef<HTMLDivElement>(null);
+  const portraitRef = useRef<HTMLDivElement>(null);
+  const titleLeftRef = useRef<HTMLHeadingElement>(null);
+  const titleRightRef = useRef<HTMLParagraphElement>(null);
+  const noteRef = useRef<HTMLDivElement>(null);
+  const { scrollTo } = useSmoothScroll();
 
   // Live Dhaka Time clock
   useEffect(() => {
@@ -30,6 +40,85 @@ export function HeroSection() {
     return () => clearInterval(interval);
   }, []);
 
+  // GSAP Entry Animations and ScrollTrigger Parallax
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // 1. Initial entrance timeline (fades & slight entrance offsets)
+      const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+
+      tl.from(noteRef.current, {
+        y: -25,
+        opacity: 0,
+        duration: 0.8,
+      })
+      .from(
+        titleLeftRef.current,
+        {
+          x: -45,
+          opacity: 0,
+          duration: 0.9,
+        },
+        "-=0.5"
+      )
+      .from(
+        titleRightRef.current,
+        {
+          x: 45,
+          opacity: 0,
+          duration: 0.9,
+        },
+        "-=0.7"
+      )
+      .from(
+        scriptRef.current,
+        {
+          opacity: 0,
+          duration: 1.0,
+          ease: "power2.out",
+        },
+        "-=0.6"
+      )
+      .from(
+        portraitRef.current,
+        {
+          opacity: 0,
+          duration: 1.0,
+          ease: "power2.out",
+        },
+        "-=0.8"
+      );
+
+      // 2. Parallax on scroll for Cursive watermark & Portrait (only y translation)
+      if (scriptRef.current) {
+        gsap.to(scriptRef.current, {
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+          y: 110,
+          ease: "none",
+        });
+      }
+
+      if (portraitRef.current) {
+        gsap.to(portraitRef.current, {
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+          y: 45,
+          ease: "none",
+        });
+      }
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
@@ -40,10 +129,7 @@ export function HeroSection() {
   };
 
   const scrollToNext = () => {
-    const nextEl = document.getElementById("experience") || document.getElementById("about");
-    if (nextEl) {
-      nextEl.scrollIntoView({ behavior: "smooth" });
-    }
+    scrollTo("#experience");
   };
 
   return (
@@ -66,15 +152,15 @@ export function HeroSection() {
         />
 
         {/* Hero stage container */}
-        <div className="hero hero-stage max-w-[1440px] mx-auto relative">
-          {/* Cursive / Italic Serif Name behind portrait */}
-          <div className="hero-script font-playfair" aria-hidden="true">
+        <div ref={heroStageRef} className="hero hero-stage max-w-[1440px] mx-auto relative">
+          {/* Cursive / Italic Serif Name behind portrait with GSAP parallax */}
+          <div ref={scriptRef} className="hero-script font-playfair select-none" aria-hidden="true">
             <span>Tajul</span>
             <span>Islam</span>
           </div>
 
-          {/* Person Portrait Cutout */}
-          <div className="hero-portrait">
+          {/* Person Portrait Cutout with GSAP parallax */}
+          <div ref={portraitRef} className="hero-portrait">
             <Image
               src="/profile_extended.png"
               alt="MD Tajul Islam — Backend Developer & System Architect"
@@ -86,7 +172,7 @@ export function HeroSection() {
           </div>
 
           {/* Floating Badges */}
-          <div className="hero-note">
+          <div ref={noteRef} className="hero-note">
             {/* Availability Badge */}
             <div className="availability-badge">
               <span className="availability-dot" aria-hidden="true" />
@@ -108,7 +194,7 @@ export function HeroSection() {
           </div>
 
           {/* Headline Left: BACKEND ARCHITECT */}
-          <h1 className="hero-title font-bebas">
+          <h1 ref={titleLeftRef} className="hero-title font-bebas">
             Backend
             <br />
             Engineer
@@ -122,19 +208,19 @@ export function HeroSection() {
           </p>
 
           {/* Specialty Right: BACKEND SYSTEM ARCHITECT */}
-          <p className="hero-specialty font-bebas">
+          <p ref={titleRightRef} className="hero-specialty font-bebas">
             System
             <br />
             Architect
           </p>
 
-          {/* Floating Circular Down Arrow Button */}
+          {/* Floating Circular Down Arrow Button with Lenis Smooth Scroll */}
           <button
             onClick={scrollToNext}
-            aria-label="Scroll down to next section"
+            aria-label="Scroll down to experience section"
             className="absolute bottom-6 right-6 sm:bottom-8 sm:right-10 z-20 w-11 h-11 rounded-full bg-[#dbeafe] hover:bg-[#bfdbfe] text-black shadow-[0_4px_20px_rgba(37,99,235,0.25)] border border-[rgba(37,99,235,0.35)] flex items-center justify-center transition-all hover:scale-110 active:scale-95 cursor-pointer group hover:border-[#2563eb]"
           >
-            <ArrowDown className="w-4 h-4 text-[#2563eb] group-hover:translate-y-0.5 transition-transform" />
+            <ArrowDown className="w-4 h-4 text-[#2563eb] group-hover:translate-y-0.5 transition-transform animate-bounce" />
           </button>
         </div>
       </div>

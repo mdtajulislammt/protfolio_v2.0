@@ -96,7 +96,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${spaceGrotesk.variable} ${bebasNeue.variable} ${playfairDisplay.variable} ${cormorantGaramond.variable} ${geistMono.variable} scroll-smooth`}
+      className={`${inter.variable} ${spaceGrotesk.variable} ${bebasNeue.variable} ${playfairDisplay.variable} ${cormorantGaramond.variable} ${geistMono.variable}`}
     >
       <body className="min-h-screen bg-[#dbeafe] text-black selection:bg-[#2563eb] selection:text-white antialiased">
         <ThemeProvider>
