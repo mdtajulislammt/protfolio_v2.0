@@ -5,6 +5,8 @@ import { Navbar } from "@/components/ui/Navbar";
 import { CommandMenu } from "@/components/ui/CommandMenu";
 import { ToastProvider } from "@/components/ui/Toast";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
+import { SystemPreloader } from "@/components/ui/SystemPreloader";
+import { ScrollTrigger } from "@/lib/gsap";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { MarqueeSection } from "@/components/sections/MarqueeSection";
 import { ExperienceSection } from "@/components/sections/ExperienceSection";
@@ -15,10 +17,23 @@ import { Footer } from "@/components/sections/Footer";
 
 export default function Home() {
   const [commandMenuOpen, setCommandMenuOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   return (
     <SmoothScrollProvider>
       <ToastProvider>
+        {/* Full-Page System Boot Preloader */}
+        {isLoading && (
+          <SystemPreloader
+            onComplete={() => {
+              setIsLoading(false);
+              setTimeout(() => {
+                ScrollTrigger.refresh();
+              }, 100);
+            }}
+          />
+        )}
+
         <div className="relative min-h-screen bg-[#dbeafe] text-black selection:bg-[#2563eb] selection:text-white font-sans">
           {/* Top Navbar */}
           <Navbar onOpenCommand={() => setCommandMenuOpen(true)} />
