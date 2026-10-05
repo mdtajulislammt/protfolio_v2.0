@@ -18,6 +18,7 @@ export function Navbar({ onOpenCommand }: NavbarProps) {
   const navLinks = [
     { name: "Home", href: "#hero", id: "hero" },
     { name: "Experience", href: "#experience", id: "experience" },
+    { name: "Gallery", href: "#gallery", id: "gallery" },
     { name: "Projects", href: "#projects", id: "projects" },
     { name: "About", href: "#about", id: "about" },
     { name: "Contact", href: "#contact", id: "contact" },
@@ -27,7 +28,7 @@ export function Navbar({ onOpenCommand }: NavbarProps) {
     const handleScroll = () => {
       setScrolled(window.scrollY > 30);
 
-      const sections = ["hero", "experience", "projects", "about", "contact"];
+      const sections = ["hero", "experience", "gallery", "projects", "about", "contact"];
       const scrollPosition = window.scrollY + 180;
 
       for (const section of sections) {

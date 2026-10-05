@@ -85,10 +85,6 @@ export function ExperienceSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* Left Column: Sticky Section Header */}
           <div ref={leftColRef} className="lg:col-span-4 lg:sticky lg:top-32 space-y-5">
-            <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#2563eb] font-bold">
-              <Briefcase className="w-3.5 h-3.5 text-[#2563eb]" />
-              <span>01 / Experience</span>
-            </div>
             <h2 className="text-5xl sm:text-6xl md:text-7xl font-bebas text-black leading-[0.92] tracking-tight">
               PROFESSIONAL
               <br />
@@ -128,7 +124,7 @@ export function ExperienceSection() {
 
             <div className="pt-4 border-t border-[rgba(37,99,235,0.2)] space-y-2">
               <div className="flex items-center gap-2.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                {/* <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" /> */}
                 <span className="text-xs font-mono text-black font-bold">
                   Currently at Backbencher Studio
                 </span>

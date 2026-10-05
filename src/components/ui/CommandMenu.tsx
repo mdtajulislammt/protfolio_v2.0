@@ -83,6 +83,14 @@ export function CommandMenu({ isOpen, onClose }: CommandMenuProps) {
       action: () => scrollTo("experience"),
     },
     {
+      id: "gallery",
+      title: "Jump to Visual Gallery & Lab",
+      subtitle: "System design diagrams, workstations & server clusters",
+      icon: Layers,
+      category: "Navigation",
+      action: () => scrollTo("gallery"),
+    },
+    {
       id: "projects",
       title: "Jump to Selected Projects",
       subtitle: "6 core backend architectures & cloud systems",

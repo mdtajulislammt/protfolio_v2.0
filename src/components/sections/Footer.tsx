@@ -72,10 +72,18 @@ export function Footer() {
               </li>
               <li>
                 <button
+                  onClick={() => scrollTo("gallery")}
+                  className="hover:text-[#2563eb] transition-colors cursor-pointer"
+                >
+                  03 Visual Gallery
+                </button>
+              </li>
+              <li>
+                <button
                   onClick={() => scrollTo("projects")}
                   className="hover:text-[#2563eb] transition-colors cursor-pointer"
                 >
-                  03 Selected Projects
+                  04 Selected Projects
                 </button>
               </li>
               <li>
@@ -83,7 +91,7 @@ export function Footer() {
                   onClick={() => scrollTo("about")}
                   className="hover:text-[#2563eb] transition-colors cursor-pointer"
                 >
-                  04 About &amp; Expertise
+                  05 About &amp; Expertise
                 </button>
               </li>
               <li>
@@ -91,7 +99,7 @@ export function Footer() {
                   onClick={() => scrollTo("contact")}
                   className="hover:text-[#2563eb] transition-colors cursor-pointer"
                 >
-                  05 Contact
+                  06 Contact
                 </button>
               </li>
             </ul>
