@@ -23,19 +23,17 @@ const bebasNeue = Bebas_Neue({
 });
 
 const playfairDisplay = Playfair_Display({
-  weight: ["400", "600"],
-  style: ["normal", "italic"],
   variable: "--font-playfair",
   subsets: ["latin"],
   display: "swap",
+  style: ["normal", "italic"],
 });
 
 const cormorantGaramond = Cormorant_Garamond({
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
   variable: "--font-editorial",
   subsets: ["latin"],
   display: "swap",
+  style: ["normal", "italic"],
 });
 
 const geistMono = Geist_Mono({
